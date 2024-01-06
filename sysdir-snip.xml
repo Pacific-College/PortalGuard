@@ -1,0 +1,19 @@
+  <SelfRegLDAPCNComposition>CN=[Username]</SelfRegLDAPCNComposition>
+  <SelfRegLDAPTargetOU>OU=SelfReg,OU=Dev,DC=portalguard,DC=us</SelfRegLDAPTargetOU>
+  <SelfReg>1</SelfReg>
+  
+  <fieldmappings>
+    <map nm="givenName">[FirstName]</map>
+    <map nm="sn">[LastName]</map>
+    <map nm="mail">[Email]</map>
+    <map nm="objectclass">top</map>
+    <map nm="objectclass">person</map>
+    <map nm="objectclass">organizationalPerson</map>
+    <map nm="objectclass">user</map>
+    <map nm="sAMAccountName">[Username]</map>
+    <map nm="unicodePwd">[Password]</map>
+    <map nm="userAccountControl">512</map>
+    <map nm="title">[Username]@pacificcollege.edu</map>
+    <map nm="member">CN=SelfRegUsers,OU=SelfReg,OU=Dev,DC=portalguard,DC=us</map>
+    <map nm="member">[CampusGroup]</map>
+  </fieldmappings>
