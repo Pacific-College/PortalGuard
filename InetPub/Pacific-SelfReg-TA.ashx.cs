@@ -29,6 +29,8 @@ namespace PortalGuard {
 		public const string FRMFLD_PHONE	 			= "Phone";
 		public const string FRMFLD_CAMPUS	 			= "Campus";
 		public const string FRMFLD_PROGRAM	 			= "Program";
+		public const string FRMFLD_STUDENTID 			= "studentid";
+
 		
         // Member variables
 		private List<PGError> errors;
@@ -100,7 +102,7 @@ namespace PortalGuard {
 
         private bool isInputValid(HttpRequest req) {
             // Loop over all fields that shouldn't be blank
-            string[] nonblankfields = new string[] { FRMFLD_FIRSTNAME, FRMFLD_LASTNAME, FRMFLD_EMAIL, FRMFLD_PHONE, FRMFLD_CAMPUS };
+            string[] nonblankfields = new string[] { FRMFLD_FIRSTNAME, FRMFLD_LASTNAME, FRMFLD_EMAIL, FRMFLD_PHONE, FRMFLD_CAMPUS, FRMFLD_STUDENTID };
             foreach (string fld in nonblankfields) {
                 if (isNullOrBlank(req, fld, true)) { errors.Add(new PGError(PGError.VLDERR.BLANK, fld)); }
             }
@@ -270,6 +272,7 @@ namespace PortalGuard {
 						cmd.Parameters.Add("@phone", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_PHONE];
 						cmd.Parameters.Add("@campus", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_CAMPUS];
 						//cmd.Parameters.Add("@program", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_PROGRAM];
+						cmd.Parameters.Add("@studentid", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_STUDENTID];
 						cmd.Parameters.Add("@errnum", SqlDbType.Int, 0);
 						cmd.Parameters["@errnum"].Direction = ParameterDirection.Output;
 						cmd.Parameters.Add("@errstr", SqlDbType.VarChar, 256);
