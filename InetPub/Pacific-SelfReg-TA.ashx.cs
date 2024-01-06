@@ -28,6 +28,7 @@ namespace PortalGuard {
 		public const string FRMFLD_EMAIL	 			= "Email";
 		public const string FRMFLD_PHONE	 			= "Phone";
 		public const string FRMFLD_CAMPUS	 			= "Campus";
+		public const string FRMFLD_PROGRAM	 			= "Program";
 		
         // Member variables
 		private List<PGError> errors;
@@ -268,6 +269,7 @@ namespace PortalGuard {
 						cmd.Parameters.Add("@email", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_EMAIL];
 						cmd.Parameters.Add("@phone", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_PHONE];
 						cmd.Parameters.Add("@campus", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_CAMPUS];
+						//cmd.Parameters.Add("@program", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_PROGRAM];
 						cmd.Parameters.Add("@errnum", SqlDbType.Int, 0);
 						cmd.Parameters["@errnum"].Direction = ParameterDirection.Output;
 						cmd.Parameters.Add("@errstr", SqlDbType.VarChar, 256);
