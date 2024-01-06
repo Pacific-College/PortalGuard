@@ -219,13 +219,26 @@ namespace PortalGuard {
                 return 1;
             }
 
+          string baseDN = ",OU=Groups,DC=office,DC=pacificcollege,DC=edu";
+			
             // Map the "campus" to the proper AD group (must be the full DN of the target group!)
             if (0 == String.Compare(req.Form["campus"], "chicago", true)) {
-                SetFormField(ref req, "CampusGroup", "CN=ChicagoCampus,OU=SelfReg,OU=Dev,DC=portalguard,DC=us");
+                SetFormField(ref req, "Group1", String.Format("CN=Students-CHI,OU=Distro Groups{0}", baseDN));
+				SetFormField(ref req, "Group2", String.Format("CN=SP_Students_CHI,OU=SharePoint,OU=Security Groups{0}", baseDN));
+				SetFormField(ref req, "Group3", String.Format("CN=CHI PaperCut Student,OU=Chicago,OU=Security Groups{0}", baseDN));
             } else if (0 == String.Compare(req.Form["campus"], "new york", true)) {
-                SetFormField(ref req, "CampusGroup", "CN=NewYorkCampus,OU=SelfReg,OU=Dev,DC=portalguard,DC=us");
+                SetFormField(ref req, "Group1", String.Format("CN=Students-NY,OU=Distro Groups{0}", baseDN));
+				SetFormField(ref req, "Group2", String.Format("CN=SP_Students_NY,OU=SharePoint,OU=Security Groups{0}", baseDN));
+				SetFormField(ref req, "Group3", String.Format("CN=NY PaperCut Student,OU=New York,OU=Security Groups{0}", baseDN));
             } else if (0 == String.Compare(req.Form["campus"], "san diego", true)) {
-                SetFormField(ref req, "CampusGroup", "CN=SanDiegoCampus,OU=SelfReg,OU=Dev,DC=portalguard,DC=us");
+                SetFormField(ref req, "Group1", String.Format("CN=Students-SD,OU=Distro Groups{0}", baseDN));
+				SetFormField(ref req, "Group2", String.Format("CN=SP_Students_SD,OU=SharePoint,OU=Security Groups{0}", baseDN));
+				SetFormField(ref req, "Group3", String.Format("CN=SD PaperCut Student,OU=San Diego,OU=Security Groups{0}", baseDN));
+            } else if (0 == String.Compare(req.Form["campus"], "online", true)) {
+                SetFormField(ref req, "Group1", String.Format("CN=Students-OL,OU=Distro Groups{0}", baseDN));
+				SetFormField(ref req, "Group2", String.Format("CN=SP_Students_OL,OU=SharePoint,OU=Security Groups{0}", baseDN));
+				// 2021-11-19 - Blank groups aren't attempted!
+				SetFormField(ref req, "Group3", "");
             }
             return PGAPI_RC_NOERROR;
         }
@@ -239,14 +252,14 @@ namespace PortalGuard {
             }
 
             // 5) Send invitation email to end-user
-            string subj = Utilities.getAppSetting("Completed_EmailSubj");
+            /*string subj = Utilities.getAppSetting("Completed_EmailSubj");
             string body = Utilities.getTemplateFileContents(Utilities.getAppSetting("Completed_EmailBody_TemplateFile"));
             //body = body.Replace("{RANDTOKEN}", token);
 
             if (0 != Utilities.sendEmail(req.Form[NewUserStagingHandler.FRMFLD_EMAIL], Utilities.subParams(subj, req), Utilities.subParams(body, req))) {
                 resp.Write(PortalGuard.Utilities.BuildErrorXML("Failed to send confirmation email"));
                 return 1;
-            }
+            }*/
 
             return PGAPI_RC_NOERROR;
         }
