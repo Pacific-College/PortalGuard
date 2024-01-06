@@ -11,11 +11,18 @@ BEGIN
 		email varchar(256) NOT NULL,
 		phone varchar(256) NOT NULL,
 		campus varchar(256) NOT NULL,
+		program varchar(256),
 		username varchar(256),
 		regcompleted datetime,
 		PRIMARY KEY (randtoken)
 	)
 END
+ELSE
+BEGIN
+	-- If the table already exists, check if 'program' column exists, and add if it doesn't exist
+	IF NOT EXISTS( SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = N'PacificCollegeRegData' AND COLUMN_NAME = N'program')
+		ALTER TABLE PacificCollegeRegData ADD program VARCHAR(256);
+END;
 GO
 
 
@@ -29,12 +36,13 @@ CREATE PROCEDURE createPacificCollegeRegistration
 	@email varchar(256),
 	@phone varchar(256),
 	@campus varchar(256),
+	-- @program varchar(256), -- uncomment if you want to add this from the form
 	@errnum int output,
 	@errstr varchar(256) output
 AS
 BEGIN TRY
-	insert into PacificCollegeRegData(randtoken, created, firstname, lastname, email, phone, campus) 
-		select @randtoken, GETUTCDATE(), @firstname, @lastname, @email, @phone, @campus;
+	insert into PacificCollegeRegData(randtoken, created, firstname, lastname, email, phone, campus, program) 
+		select @randtoken, GETUTCDATE(), @firstname, @lastname, @email, @phone, @campus, ''; -- if passing in, use @program instead of ''
 		
 	set @errnum = 0;
 	set @errstr = 'Successfully inserted registration data for token: ' + @randtoken;
@@ -90,6 +98,6 @@ BEGIN CATCH
 END CATCH
 go
 
-
---declare @localnum int, @localstr varchar(256);
---exec getPacificCollegeRegistration 'randomtokenhere', @localnum OUTPUT, @localstr OUTPUT
+-- declare @localnum int, @localstr varchar(256);
+-- exec createPacificCollegeRegistration 'randomtokenhere', 'First', 'Last', 'first.last@email.com', '512-555-1212', 'chicago', @localnum OUTPUT, @localstr OUTPUT
+-- exec getPacificCollegeRegistration 'randomtokenhere', @localnum OUTPUT, @localstr OUTPUT

@@ -251,6 +251,11 @@ namespace PortalGuard {
                 return 1;
             }
 
+            if (0 != SendSecondaryEmail(req, resp)) {
+                resp.Write(PortalGuard.Utilities.BuildErrorXML("Failed to send secondary email"));
+                //return 1; // uncomment if an error sending this email should prevent continuation and result in a failure
+            }
+ 
             // 5) Send invitation email to end-user
             /*string subj = Utilities.getAppSetting("Completed_EmailSubj");
             string body = Utilities.getTemplateFileContents(Utilities.getAppSetting("Completed_EmailBody_TemplateFile"));
@@ -261,6 +266,26 @@ namespace PortalGuard {
                 return 1;
             }*/
 
+            return PGAPI_RC_NOERROR;
+        }
+        
+        private int SendSecondaryEmail(ref HttpRequest req, ref HttpResponse resp) {
+            
+            // reading "program" field, field is set from SQL, expected values: "moodle", "blackboard"
+            string program = req.Form[NewUserStagingHandler.FRMFLD_PROGRAM]; 
+
+            // web.config setting, expected values: "moodle_EmailSubj", "blackboard_EmailSubj"
+            string appSettingSubjectName = program + "_EmailSubj"; 
+           
+            // web.config setting, expected values: "moodle_EmailBody_TemplateFile", "blackboard_EmailBody_TemplateFile"
+            string appSettingBodyName = program + "_EmailBody_TemplateFile"; 
+
+            string subj = Utilities.getAppSetting(appSettingSubjectName);
+            string body = Utilities.getTemplateFileContents(Utilities.getAppSetting(appsettingBodyName));
+            if (0 != Utilities.sendEmail(req.Form[NewUserStagingHandler.FRMFLD_EMAIL], Utilities.subParams(subj, req), Utilities.subParams(body, req))) {
+                resp.Write(PortalGuard.Utilities.BuildErrorXML("Failed to send secondary email"));
+                return 1;
+            }
             return PGAPI_RC_NOERROR;
         }
 
