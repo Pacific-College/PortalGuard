@@ -271,14 +271,20 @@ namespace PortalGuard {
         
         private int SendSecondaryEmail(ref HttpRequest req, ref HttpResponse resp) {
             
-            // reading "program" field, field is set from SQL, expected values: "moodle", "blackboard"
+            // reading "program" field, field is set from SQL, expected values from SalesForce program field
             string program = req.Form[NewUserStagingHandler.FRMFLD_PROGRAM]; 
 
+            string lms = "moodle";
+
+            if (program === 'BSN-Pre' || program === 'BSN' || program === 'MC Cert') {
+              lms = 'blackboard'
+            }
+
             // web.config setting, expected values: "moodle_EmailSubj", "blackboard_EmailSubj"
-            string appSettingSubjectName = program + "_EmailSubj"; 
+            string appSettingSubjectName = lms + "_EmailSubj"; 
            
             // web.config setting, expected values: "moodle_EmailBody_TemplateFile", "blackboard_EmailBody_TemplateFile"
-            string appSettingBodyName = program + "_EmailBody_TemplateFile"; 
+            string appSettingBodyName = lms + "_EmailBody_TemplateFile"; 
 
             string subj = Utilities.getAppSetting(appSettingSubjectName);
             string body = Utilities.getTemplateFileContents(Utilities.getAppSetting(appsettingBodyName));
