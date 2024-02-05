@@ -271,7 +271,7 @@ namespace PortalGuard {
 						cmd.Parameters.Add("@email", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_EMAIL];
 						cmd.Parameters.Add("@phone", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_PHONE];
 						cmd.Parameters.Add("@campus", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_CAMPUS];
-						//cmd.Parameters.Add("@program", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_PROGRAM];
+						cmd.Parameters.Add("@program", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_PROGRAM];
 						cmd.Parameters.Add("@studentid", SqlDbType.VarChar, 256).Value = form[NewUserStagingHandler.FRMFLD_STUDENTID];
 						cmd.Parameters.Add("@errnum", SqlDbType.Int, 0);
 						cmd.Parameters["@errnum"].Direction = ParameterDirection.Output;
