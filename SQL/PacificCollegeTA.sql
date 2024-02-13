@@ -11,6 +11,7 @@ BEGIN
 		email varchar(256) NOT NULL,
 		phone varchar(256) NOT NULL,
 		campus varchar(256) NOT NULL,
+    studentid varchar(256) NOT NULL,
 		program varchar(256),
 		username varchar(256),
 		regcompleted datetime,
@@ -36,13 +37,14 @@ CREATE PROCEDURE createPacificCollegeRegistration
 	@email varchar(256),
 	@phone varchar(256),
 	@campus varchar(256),
-	-- @program varchar(256), -- uncomment if you want to add this from the form
+  @studentid varchar(256),
+  -- @program varchar(256), -- uncomment if you want to add this from the form
 	@errnum int output,
 	@errstr varchar(256) output
 AS
 BEGIN TRY
-	insert into PacificCollegeRegData(randtoken, created, firstname, lastname, email, phone, campus, program) 
-		select @randtoken, GETUTCDATE(), @firstname, @lastname, @email, @phone, @campus, ''; -- if passing in, use @program instead of ''
+	insert into PacificCollegeRegData(randtoken, created, firstname, lastname, email, phone, campus, studentid, program) 
+		select @randtoken, GETUTCDATE(), @firstname, @lastname, @email, @phone, @campus, '', ''; -- if passing in, use @program instead of ''
 		
 	set @errnum = 0;
 	set @errstr = 'Successfully inserted registration data for token: ' + @randtoken;

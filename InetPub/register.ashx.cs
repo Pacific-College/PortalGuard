@@ -251,7 +251,7 @@ namespace PortalGuard {
                 return 1;
             }
 
-            if (0 != SendSecondaryEmail(req, resp)) {
+            if (0 != SendSecondaryEmail(ref req, ref resp)) {
                 resp.Write(PortalGuard.Utilities.BuildErrorXML("Failed to send secondary email"));
                 //return 1; // uncomment if an error sending this email should prevent continuation and result in a failure
             }
@@ -276,7 +276,7 @@ namespace PortalGuard {
 
             string lms = "moodle";
 
-            if (program === "BSN-Pre" || program === "MC Cert") {
+            if (program == "BSN-Pre" || program == "MC Cert") {
               lms = "blackboard";
             }
 
@@ -287,7 +287,7 @@ namespace PortalGuard {
             string appSettingBodyName = lms + "_EmailBody_TemplateFile"; 
 
             string subj = Utilities.getAppSetting(appSettingSubjectName);
-            string body = Utilities.getTemplateFileContents(Utilities.getAppSetting(appsettingBodyName));
+            string body = Utilities.getTemplateFileContents(Utilities.getAppSetting(appSettingBodyName));
             if (0 != Utilities.sendEmail(req.Form[NewUserStagingHandler.FRMFLD_EMAIL], Utilities.subParams(subj, req), Utilities.subParams(body, req))) {
                 resp.Write(PortalGuard.Utilities.BuildErrorXML("Failed to send secondary email"));
                 return 1;
