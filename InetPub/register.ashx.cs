@@ -276,8 +276,8 @@ namespace PortalGuard {
 
             string lms = "moodle";
 
-            if (program === 'BSN-Pre' || program === 'BSN' || program === 'MC Cert') {
-              lms = 'blackboard'
+            if (program === "BSN-Pre" || program === "MC Cert") {
+              lms = "blackboard";
             }
 
             // web.config setting, expected values: "moodle_EmailSubj", "blackboard_EmailSubj"
