@@ -276,7 +276,9 @@ namespace PortalGuard {
 
             string lms = "moodle";
 
-            if (program == "BSN-Pre" || program == "MC Cert") {
+            program = program.Trim().ToLower();
+            
+            if (program == "bsn-pre" || program == "mc cert" || program == "dac upgrade" || program == "dacm upgrade") {
               lms = "blackboard";
             }
 
