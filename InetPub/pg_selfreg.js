@@ -42,15 +42,14 @@ function getSelfRegTOUText() { return "1. Terms: By accessing this web site, you
 function getSelfRegAcceptTOULabel() { return " I accept these terms of use"; }
 function getSelfRegCAPTCHALabel() { return "You're not a robot, right?"; }
 
-
 // Run-time messages displayed to end user - edit as needed
 function getSelfRegSuccessMsg(root) {
 	var emailroot = getXMLChildElement(root, "emailconf");
 	if (null != emailroot) {
 		var email = getXMLAttrStr(emailroot, "email");
-		return showSuccess("Confirmation Email Sent", "Please follow the instructions in the email sent to <span class='boldred italic'>" + email + "</span> to complete the registration.<br /><br /><a href='javascript:window.location=\"" + DEST_URL + "\"'>Go back to the login page</a>");
+		return showSuccess("Confirmation Email Sent", "Please follow the instructions in the email sent to <span class='boldred italic'>" + email + "</span> to complete the registration.");
 	} else {
-		return showSuccess("Registration Successful", "<a href='javascript:doLogin()'>Please click here to login</a>");
+		return showSuccess("Registration Successful", "Please follow the instructions in the email that will be sent after account creation (up to 1 hour).");
 	}
 }
 function getSelfRegConfSuccessMsg() { return showSuccess("Registration Successful", "Your account has been successfully confirmed and created.<br /><br /><a href='javascript:doLogin()'>Please login with your new account</a>"); }
