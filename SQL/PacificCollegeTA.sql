@@ -1,6 +1,5 @@
 use pstar;
 
-
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'PacificCollegeRegData')
 BEGIN
 	CREATE TABLE PacificCollegeRegData (
@@ -38,13 +37,13 @@ CREATE PROCEDURE createPacificCollegeRegistration
 	@phone varchar(256),
 	@campus varchar(256),
   @studentid varchar(256),
-  -- @program varchar(256), -- uncomment if you want to add this from the form
+  @program varchar(256), -- uncomment if you want to add this from the form
 	@errnum int output,
 	@errstr varchar(256) output
 AS
 BEGIN TRY
 	insert into PacificCollegeRegData(randtoken, created, firstname, lastname, email, phone, campus, studentid, program) 
-		select @randtoken, GETUTCDATE(), @firstname, @lastname, @email, @phone, @campus, '', ''; -- if passing in, use @program instead of ''
+		select @randtoken, GETUTCDATE(), @firstname, @lastname, @email, @phone, @campus, @studentid, @program; -- if passing in, use @program instead of ''
 		
 	set @errnum = 0;
 	set @errstr = 'Successfully inserted registration data for token: ' + @randtoken;
