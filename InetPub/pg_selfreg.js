@@ -49,7 +49,7 @@ function getSelfRegSuccessMsg(root) {
 		var email = getXMLAttrStr(emailroot, "email");
 		return showSuccess("Confirmation Email Sent", "Please follow the instructions in the email sent to <span class='boldred italic'>" + email + "</span> to complete the registration.");
 	} else {
-		return showSuccess("Registration Successful", "Please follow the instructions in the email that will be sent after account creation (up to 1 hour).");
+		return showSuccess("Registration Successful", "Your account is now being created, which may take up to one hour. After your account is created you will receive an email with further instructions.");
 	}
 }
 function getSelfRegConfSuccessMsg() { return showSuccess("Registration Successful", "Your account has been successfully confirmed and created.<br /><br /><a href='javascript:doLogin()'>Please login with your new account</a>"); }
