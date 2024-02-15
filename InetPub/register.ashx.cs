@@ -251,10 +251,10 @@ namespace PortalGuard {
                 return 1;
             }
 
-            if (0 != SendSecondaryEmail(ref req, ref resp)) {
+            /*if (0 != SendSecondaryEmail(ref req, ref resp)) {
                 resp.Write(PortalGuard.Utilities.BuildErrorXML("Failed to send secondary email"));
                 //return 1; // uncomment if an error sending this email should prevent continuation and result in a failure
-            }
+            }*/
  
             // 5) Send invitation email to end-user
             /*string subj = Utilities.getAppSetting("Completed_EmailSubj");
